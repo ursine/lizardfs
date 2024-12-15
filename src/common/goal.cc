@@ -61,7 +61,7 @@ void Goal::Slice::mergeIn(const Slice &other) {
 	assert(size() == other.size());
 
 	std::array<std::array<int, kMaxPartsCount>, kMaxPartsCount> cost;
-	std::array<int, kMaxPartsCount> assignment;
+	std::array<int, kMaxPartsCount> assignment = {};
 
 	Labels tmp_union;
 

@@ -32,6 +32,7 @@
 #include <unistd.h>
 #include <algorithm>
 #include <list>
+#include <random>
 #include <set>
 #include <vector>
 
@@ -415,8 +416,8 @@ std::vector<std::pair<matocsserventry *, ChunkPartType>> matocsserv_getservers_f
 				[&slice](int i){
 			return slice_traits::isDataPart(ChunkPartType(slice.getType(), i));
 		}));
-		std::random_shuffle(shuffle.begin(), shuffle.begin() + data_count);
-		std::random_shuffle(shuffle.begin() + data_count, shuffle.begin() + slice.size());
+		std::shuffle(shuffle.begin(), shuffle.begin() + data_count, std::mt19937(std::random_device()()));
+		std::shuffle(shuffle.begin() + data_count, shuffle.begin() + slice.size(), std::mt19937(std::random_device()()));
 
 		uint32_t min_version = std::max({
 			slice_traits::isXor(slice) ? kFirstXorVersion : 0,
@@ -482,7 +483,7 @@ void matocsserv_getservers_lessrepl(const MediaLabel &label, uint32_t min_chunks
 			temporarily_unavailable++;
 		}
 	}
-	std::random_shuffle(servers.begin(), servers.end());
+	std::shuffle(servers.begin(), servers.end(), std::mt19937(std::random_device()()));
 	std::sort(servers.begin(), servers.end(), matocsserventry::lessUsedAndLoaded);
 	if (gAvoidSameIpChunkservers) {
 		counting_sort(servers, [&ip_counter](matocsserventry *server) {

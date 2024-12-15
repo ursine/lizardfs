@@ -207,9 +207,10 @@ public:
 		clear();
 
 		if (other.capacity() > N) {
-			base::operator=(std::move(other));
-
-			// With std c++ library implementation in gcc
+			//base::operator=(std::move(other));
+                        base::operator=(other);
+			
+                        // With std c++ library implementation in gcc
 			// there is no need for two next lines. Move assignment
 			// makes 'other' equal to empty vector.
 			other.clear();

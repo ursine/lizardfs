@@ -27,8 +27,7 @@
 #endif
 
 #ifndef LIZARDFS_HAVE_STD_TO_STRING
-
-#include <sstream>
+/*#include <sstream>
 #include <string>
 
 namespace std {
@@ -40,7 +39,7 @@ inline std::string to_string(const T val) {
 	return ss.str();
 }
 
-}
+}*/
 
 #endif /* #ifndef LIZARDFS_HAVE_STD_TO_STRING */
 

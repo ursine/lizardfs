@@ -2897,7 +2897,7 @@ uint8_t fs_get_tape_copy_locations(uint32_t inode, std::vector<TapeCopyLocationI
 	}
 	/* Lazy cleaning up of disconnected tapeservers */
 	for (auto &tapeserverId : disconnectedTapeservers) {
-		std::remove_if(it->second.begin(), it->second.end(),
+		std::ignore = std::remove_if(it->second.begin(), it->second.end(),
 		               [tapeserverId](const TapeCopy &copy) {
 			               return copy.server == tapeserverId;
 			       });

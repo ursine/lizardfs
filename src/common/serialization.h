@@ -18,8 +18,6 @@
 
 #pragma once
 
-#include "common/platform.h"
-
 #include <array>
 #include <cstring>
 #include <map>
@@ -29,6 +27,7 @@
 #include <utility>
 #include <vector>
 
+#include "common/platform.h"
 #include "common/compact_vector.h"
 #include "common/flat_set.h"
 #include "common/flat_map.h"

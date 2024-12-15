@@ -129,7 +129,7 @@ public:
 
 		try {
 			auto tsAndValue = std::make_pair(currentTs, value);
-			keysToTimeAndValue_.insert(std::make_pair(keyTuple, std::move(tsAndValue)));
+			keysToTimeAndValue_.insert(std::make_pair(keyTuple, tsAndValue));
 			auto keyToTimeAndValue = keysToTimeAndValue_.find(keyTuple);
 			auto keysTuplePointer = &keyToTimeAndValue->first;
 			auto tsAndKeys = std::make_pair(currentTs, keysTuplePointer);

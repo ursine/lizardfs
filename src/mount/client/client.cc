@@ -22,6 +22,7 @@
 
 #include <dlfcn.h>
 #include <fstream>
+#include <unistd.h>
 
 #include "client_error_code.h"
 #include "common/richacl_converter.h"
@@ -252,7 +253,7 @@ Client::ReadDirReply Client::readdir(Context &ctx, FileInfo* fileinfo, off_t off
 
 std::string Client::readlink(Context &ctx, Inode inode) {
 	std::error_code ec;
-	std::string link = readlink(ctx, inode);
+	auto link = readlink(ctx, inode, ec);
 	if (ec) {
 		throw std::system_error(ec);
 	}
@@ -538,8 +539,8 @@ void Client::flush(Context &ctx, FileInfo *fileinfo, std::error_code &ec) {
 }
 
 void Client::fsync(Context &ctx, FileInfo *fileinfo) {
-	std::error_code ec;
-	fsync(ctx, fileinfo);
+	std::error_code ec; 
+        fsync(ctx, fileinfo, ec);
 	if (ec) {
 		throw std::system_error(ec);
 	}

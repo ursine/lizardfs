@@ -714,14 +714,14 @@ void mfs_meta_open(fuse_req_t req, fuse_ino_t ino, struct fuse_file_info *fi) {
 		pathinfo->size = strlen((char*)path) + 1;
 		if (!(pathinfo->p = (char*)malloc(pathinfo->size))) {
 			lzfs_pretty_syslog(LOG_EMERG, "out of memory");
-			free(pathinfo);
 			pthread_mutex_destroy(&(pathinfo->lock));
+			free(pathinfo);
 			return;
 		}
 		memcpy(pathinfo->p, path, pathinfo->size - 1);
 		pathinfo->p[pathinfo->size - 1] = '\n';
 		fi->direct_io = 1;
-		fi->fh = (unsigned long)pathinfo;
+		fi->fh = reinterpret_cast<unsigned long>(pathinfo);
 
 		if (fuse_reply_open(req, fi) == -ENOENT) {
 			fi->fh = 0;

@@ -180,9 +180,9 @@ protected:
 	 * \brief Purge all previously enqueued resources
 	 */
 	void flushPurgeList() {
-		PurgeList tmp;
+		//PurgeList tmp;
 		std::unique_lock<std::mutex> guard(mutex_);
-		tmp = std::move(purge_list_);
+		//tmp = std::move(purge_list_);
 		purge_list_.clear();
 	}
 

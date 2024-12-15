@@ -230,7 +230,7 @@ public:
 			entries.push_back(std::addressof(entry));
 		}
 
-		Size requestSize(Offset real_offset, Size real_size) const {
+		[[nodiscard]] Size requestSize(Offset real_offset, Size real_size) const {
 			if (entries.empty()) {
 				return 0;
 			}
@@ -239,10 +239,11 @@ public:
 			return std::min<Size>(endOffset() - real_offset, real_size);
 		}
 
-		std::string toString() const {
+		[[nodiscard]] std::string toString() const {
 			std::string text;
 			for(const auto &entry : entries) {
-				text += "(" + std::to_string(entry->refcount) + "|"
+				const int rc = entry->refcount;
+				text += "(" + std::to_string(rc) + "|"
 				+ std::to_string(entry->offset) + ":"
 				+ std::to_string(entry->buffer.size()) + "),";
 			}
@@ -378,7 +379,8 @@ protected:
 	std::string toString() const {
 		std::string text;
 		for(const auto &entry : entries_) {
-			text += "(" + std::to_string(entry.refcount) + "|"
+			const int rc = entry.refcount;
+			text += "(" + std::to_string(rc) + "|"
 			+ std::to_string(entry.offset) + ":"
 			+ std::to_string(entry.buffer.size()) + "),";
 		}

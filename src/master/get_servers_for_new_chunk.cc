@@ -20,6 +20,8 @@
 
 #include "master/get_servers_for_new_chunk.h"
 
+#include <random>
+
 #include "common/massert.h"
 #include "common/random.h"
 #include "master/chunks.h"
@@ -60,7 +62,7 @@ void GetServersForNewChunk::prepareData(ChunkCreationHistory &history) {
 
 	// Order servers by relative disk usage.
 	// random_shuffle to choose randomly if relative disk usage is the same.
-	std::random_shuffle(servers_.begin(), servers_.end());
+	std::shuffle(servers_.begin(), servers_.end(), std::mt19937(std::random_device()()));
 	std::stable_sort(servers_.begin(), servers_.end(),
 				 [](const ChunkserverChunkCounter &a, const ChunkserverChunkCounter &b) {
 					 int64_t aRelativeUsage = a.chunks_created * b.weight;

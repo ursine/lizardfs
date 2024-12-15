@@ -264,7 +264,7 @@ liz_t *liz_init_with_params(struct liz_init_params *params) {
 int liz_update_groups(liz_t *instance, liz_context_t *ctx, gid_t *gids, int gid_num) {
 	Client &client = *(Client *)instance;
 	Client::Context &client_ctx = *(Client::Context *)ctx;
-	Client::Context::GroupsContainer gids_backup(std::move(client_ctx.gids));
+	Client::Context::GroupsContainer gids_backup(client_ctx.gids);
 	try {
 		client_ctx.gids.assign(gids, gids + gid_num);
 		std::error_code ec;
